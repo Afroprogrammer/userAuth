@@ -7,15 +7,15 @@ import com.afroprogrammer.userAuth.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+
+import javax.transaction.Transactional;
 import java.util.List;
-@Service
-@RequiredArgsConstructor @Transactional @Slf4j
-
+@Service @RequiredArgsConstructor @Transactional
+@Slf4j
 public class AppUserServiceImpl implements UserService{
-    private final UserRepo userRepo;
-    private RoleRepo roleRepo;
+    private  final UserRepo userRepo;
+    private final RoleRepo roleRepo;
 
     @Override
     public AppUser saveUser(AppUser user) {
@@ -31,10 +31,10 @@ public class AppUserServiceImpl implements UserService{
 
     @Override
     public void addRoleToUser(String username, String roleName) {
-        AppUser user = userRepo.findByUsername(username);
-        Role role = roleRepo.findByName(roleName);
-        log.info("Adding  new role name {} to the user name {} ", role.getName() , user.getName());
-        user.getRoles().add(role);
+    AppUser app = userRepo.findByUsername(username);
+    Role role = roleRepo.findByName(roleName);
+    app.getRoles().add(role);
+
     }
 
     @Override
